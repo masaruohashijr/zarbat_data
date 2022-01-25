@@ -19,7 +19,7 @@ func ensureCors(w http.ResponseWriter) http.ResponseWriter {
 }
 
 func GetAll(w http.ResponseWriter, r *http.Request) {
-	fmt.Println("GET ALL")
+	fmt.Println("GET ALL RUN")
 	runs := GetRuns()
 	response, _ := json.Marshal(runs)
 	fmt.Println(string(response))
@@ -28,7 +28,7 @@ func GetAll(w http.ResponseWriter, r *http.Request) {
 }
 
 func Get(w http.ResponseWriter, r *http.Request) {
-	fmt.Println("GET")
+	fmt.Println("GET RUN")
 	params := mux.Vars(r)
 	id, _ := strconv.Atoi(params["id"])
 	run := GetRun(id)
@@ -39,7 +39,7 @@ func Get(w http.ResponseWriter, r *http.Request) {
 }
 
 func Delete(w http.ResponseWriter, r *http.Request) {
-	fmt.Println("DELETE")
+	fmt.Println("DELETE RUN")
 	params := mux.Vars(r)
 	id, _ := strconv.Atoi(params["id"])
 	run := DeleteRun(id)
@@ -49,9 +49,16 @@ func Delete(w http.ResponseWriter, r *http.Request) {
 }
 
 func Put(w http.ResponseWriter, r *http.Request) {
-	fmt.Println("PUT")
+	fmt.Println("PUT RUN")
 	var run Run
 	_ = json.NewDecoder(r.Body).Decode(&run)
+	fmt.Println("id", run.Id)
+	fmt.Println("name", run.Name)
+	fmt.Println("scenarioId", run.ScenarioId)
+	fmt.Println("featureId", run.FeatureId)
+	fmt.Println("environmentId", run.EnvironmentId)
+	fmt.Println("contextId", run.ContextId)
+	fmt.Println("userId", run.UserId)
 	updatedRun := UpdateRun(run)
 	response, _ := json.Marshal(updatedRun)
 	ensureCors(w)
@@ -59,9 +66,16 @@ func Put(w http.ResponseWriter, r *http.Request) {
 }
 
 func Post(w http.ResponseWriter, r *http.Request) {
-	fmt.Println("POST")
+	fmt.Println("POST RUN")
 	var run Run
 	_ = json.NewDecoder(r.Body).Decode(&run)
+	fmt.Println("id", run.Id)
+	fmt.Println("name", run.Name)
+	fmt.Println("scenarioId", run.ScenarioId)
+	fmt.Println("featureId", run.FeatureId)
+	fmt.Println("environmentId", run.EnvironmentId)
+	fmt.Println("contextId", run.ContextId)
+	fmt.Println("userId", run.UserId)
 	newRun := AddRun(run)
 	response, _ := json.Marshal(newRun)
 	fmt.Println(string(response))

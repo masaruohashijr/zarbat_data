@@ -10,7 +10,7 @@ func createTableScenario(db *sql.DB) {
 		"id" integer NOT NULL PRIMARY KEY AUTOINCREMENT,		
 		"name" TEXT,
 		"description" TEXT,
-		"story" TEXT,
+		"listOfSteps" TEXT,
 		"featureId" integer
 	  );`
 
@@ -24,28 +24,28 @@ func createTableScenario(db *sql.DB) {
 }
 
 func insertScenarios() {
-	insertScenario(Db, 1, "Make Call", "", "", 0)
-	insertScenario(Db, 2, "View Call", "", "", 0)
-	insertScenario(Db, 3, "List Calls", "", "", 0)
-	insertScenario(Db, 4, "Interrupt Live Call", "", "", 0)
-	insertScenario(Db, 5, "Send Digits to Live Call", "", "", 0)
-	insertScenario(Db, 6, "Play Audio to Live Call", "", "", 0)
-	insertScenario(Db, 7, "Apply Voice Effect", "", "", 0)
-	insertScenario(Db, 8, "View Sms", "", "", 0)
-	insertScenario(Db, 9, "List Sms", "", "", 0)
-	insertScenario(Db, 10, "Send Sms", "", "", 0)
+	insertScenario(Db, 1, "Make Call", "", "Step 1\nStep 2\nStep 3\nStep 4\nStep 5", 0)
+	insertScenario(Db, 2, "View Call", "", "Step 1\nStep 2\nStep 3\nStep 4\nStep 5", 0)
+	insertScenario(Db, 3, "List Calls", "", "Step 1\nStep 2\nStep 3\nStep 4\nStep 5", 0)
+	insertScenario(Db, 4, "Interrupt Live Call", "", "Step 1\nStep 2\nStep 3\nStep 4\nStep 5", 0)
+	insertScenario(Db, 5, "Send Digits to Live Call", "", "Step 1\nStep 2\nStep 3\nStep 4\nStep 5", 0)
+	insertScenario(Db, 6, "Play Audio to Live Call", "", "Step 1\nStep 2\nStep 3\nStep 4\nStep 5", 0)
+	insertScenario(Db, 7, "Apply Voice Effect", "", "Step 1\nStep 2\nStep 3\nStep 4\nStep 5", 0)
+	insertScenario(Db, 8, "View Sms", "", "Step 1\nStep 2\nStep 3\nStep 4\nStep 5", 0)
+	insertScenario(Db, 9, "List Sms", "", "Step 1\nStep 2\nStep 3\nStep 4\nStep 5", 0)
+	insertScenario(Db, 10, "Send Sms", "", "Step 1\nStep 2\nStep 3\nStep 4\nStep 5", 0)
 }
 
 // We are passing db reference connection from main to our method with other parameters
-func insertScenario(db *sql.DB, id int, name, description, story string, featureId int) {
+func insertScenario(db *sql.DB, id int, name, description, listOfSteps string, featureId int) {
 	log.Println("Inserting scenario record ...")
-	insertScenarioSQL := `INSERT INTO scenario(id, name, description, story, featureId) VALUES (?, ?, ?, ?, ?)`
+	insertScenarioSQL := `INSERT INTO scenario(id, name, description, listOfSteps, featureId) VALUES (?, ?, ?, ?, ?)`
 	statement, err := db.Prepare(insertScenarioSQL) // Prepare statement.
 	// This is good to avoid SQL injections
 	if err != nil {
 		log.Fatalln(err.Error())
 	}
-	_, err = statement.Exec(id, name, description, story, featureId)
+	_, err = statement.Exec(id, name, description, listOfSteps, featureId)
 	if err != nil {
 		log.Fatalln(err.Error())
 	}
@@ -61,9 +61,9 @@ func displayScenarios(db *sql.DB) {
 		var id int
 		var name string
 		var description string
-		var story string
+		var listOfSteps string
 		var featureId int
-		row.Scan(&id, &name, &description, &story, &featureId)
-		log.Println("Scenario: ", name, description, story, featureId)
+		row.Scan(&id, &name, &description, &listOfSteps, &featureId)
+		log.Println("Scenario: ", name, description, listOfSteps, featureId)
 	}
 }

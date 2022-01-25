@@ -13,6 +13,7 @@ import (
 	"zarbat_mock/features/schedule"
 	"zarbat_mock/features/step"
 	"zarbat_mock/features/testCase"
+	"zarbat_mock/features/user"
 
 	"github.com/gorilla/mux"
 )
@@ -21,11 +22,11 @@ func main() {
 	database.InitDatabase()
 	router := mux.NewRouter()
 	// User
-	/*	router.HandleFunc("/user", user.GetAll).Methods("GET", "OPTIONS")
-		router.HandleFunc("/user/{id}", user.Delete).Methods("DELETE", "OPTIONS")
-		router.HandleFunc("/user/{id}", user.Get).Methods("GET", "OPTIONS")
-		router.HandleFunc("/user", user.Post).Methods("POST", "OPTIONS")
-		router.HandleFunc("/user", user.Put).Methods("PUT", "OPTIONS")*/
+	router.HandleFunc("/user", user.GetAll).Methods("GET", "OPTIONS")
+	router.HandleFunc("/user/{id}", user.Delete).Methods("DELETE", "OPTIONS")
+	router.HandleFunc("/user/{id}", user.Get).Methods("GET", "OPTIONS")
+	router.HandleFunc("/user", user.Post).Methods("POST", "OPTIONS")
+	router.HandleFunc("/user", user.Put).Methods("PUT", "OPTIONS")
 	// Scenario
 	router.HandleFunc("/scenario", scenario.Put).Methods("PUT", "OPTIONS")
 	router.HandleFunc("/scenario", scenario.GetAll).Methods("GET", "OPTIONS")
@@ -88,8 +89,16 @@ func main() {
 	router.HandleFunc("/testCase", testCase.Post).Methods("POST", "OPTIONS")
 	router.HandleFunc("/testCase", testCase.Put).Methods("PUT", "OPTIONS")
 	http.Handle("/", router)
-	addr := ":5000"
+	addr := ":5002"
 	println("Zarbat Mock")
 	//http.ListenAndServe(addr, cors.Default().Handler(router))
 	http.ListenAndServe(addr, router)
+}
+
+type Scenario struct {
+	Id          int    `json:"id"`
+	Name        string `json:"name"`
+	Description string `json:"description"`
+	ListOfSteps string `json:"listOfSteps"`
+	FeatureId   int    `json:"featureId"`
 }

@@ -9,7 +9,9 @@ func createTableTestCase(db *sql.DB) {
 	createTestCaseTableSQL := `CREATE TABLE testCase (
 		"id" integer NOT NULL PRIMARY KEY AUTOINCREMENT,		
 		"name" TEXT,
-		"description" TEXT
+		"description" TEXT,
+		"environmentId" integer,
+		"contextId" integer
 	  );`
 
 	log.Println("Create testCase table...")
@@ -55,4 +57,21 @@ func displayTestCases(db *sql.DB) {
 		row.Scan(&id, &name, &description)
 		log.Println("TestCase: ", name, description)
 	}
+}
+
+func createTableScenarioTestCase(db *sql.DB) {
+	createScenarioTestCaseTableSQL := `CREATE TABLE scenarioTestCase (
+		"id" integer NOT NULL PRIMARY KEY AUTOINCREMENT,		
+		"testCaseId" integer,
+		"scenarioId" integer,
+		"position" integer
+	  );`
+
+	log.Println("Create scenarioTestCase table...")
+	statement, err := db.Prepare(createScenarioTestCaseTableSQL) // Prepare SQL Statement
+	if err != nil {
+		log.Fatal(err.Error())
+	}
+	statement.Exec() // Execute SQL Statements
+	log.Println("scenario testCase table created")
 }

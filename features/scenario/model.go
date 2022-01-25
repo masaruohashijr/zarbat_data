@@ -4,6 +4,7 @@ type Scenario struct {
 	Id          int    `json:"id"`
 	Name        string `json:"name"`
 	Description string `json:"description"`
-	Story       string `json:"story"`
+	ListOfSteps string `json:"listOfSteps"`
 	FeatureId   string `json:"featureId"`
+	Position    string `json:"position"`
 }

@@ -11,10 +11,10 @@ import (
 var Db *sql.DB
 
 func InitDatabase() {
-	resetDB()
+	//resetDB()
 	Db, _ = sql.Open("sqlite3", "./sqlite-database.db")
 	// User
-	createTableUser(Db)
+	/*createTableUser(Db)
 	insertUsers()
 	displayUsers(Db)
 	// Context
@@ -55,8 +55,9 @@ func InitDatabase() {
 	displaySteps(Db)
 	// TestCase
 	createTableTestCase(Db)
+	createTableScenarioTestCase(Db)
 	insertTestCases()
-	displayTestCases(Db)
+	displayTestCases(Db)*/
 }
 
 func resetDB() {

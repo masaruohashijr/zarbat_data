@@ -9,7 +9,15 @@ func createTableRun(db *sql.DB) {
 	createRunTableSQL := `CREATE TABLE run (
 		"id" integer NOT NULL PRIMARY KEY AUTOINCREMENT,		
 		"name" TEXT,
-		"description" TEXT
+		"description" TEXT,
+		"scenarioId" integer,
+		"listOfSteps" TEXT,
+		"logs" TEXT,
+		"featureId" integer,
+		"environmentId" integer,
+		"contextId" integer,
+		"userId" integer,
+		"runAt" TEXT
 	  );`
 
 	log.Println("Create run table...")
@@ -50,7 +58,7 @@ func insertRun(db *sql.DB, id int, name, description string) {
 }
 
 func displayRuns(db *sql.DB) {
-	row, err := db.Query("SELECT * FROM run ORDER BY name")
+	row, err := db.Query("SELECT id, name, description FROM run ORDER BY name")
 	if err != nil {
 		log.Fatal(err)
 	}
