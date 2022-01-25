@@ -141,7 +141,9 @@ func DbUpdateScenariosTestCase(testCase TestCase) {
 		rows.Scan(&scenario.Id, &scenario.Name, &scenario.Description, &scenario.ListOfSteps, &scenario.FeatureId, &scenario.Position)
 		scenariosDB = append(scenariosDB, scenario)
 	}
-	scenariosDB, scenariosPage := diffScenarios(scenariosDB, testCase.Scenarios)
+	copyTestCaseScenarios := make([]s.Scenario, len(testCase.Scenarios))
+	copy(copyTestCaseScenarios, testCase.Scenarios)
+	scenariosDB, scenariosPage := diffScenarios(scenariosDB, copyTestCaseScenarios)
 	if len(scenariosDB) > 0 {
 		deleteScenarios(testCase, scenariosDB)
 	}
@@ -182,12 +184,12 @@ func diffScenarios(scenariosDB, scenariosPage []s.Scenario) ([]s.Scenario, []s.S
 func deleteScenarios(testCase TestCase, scenariosToBeDeleted []s.Scenario) {
 	db := database.Db
 	for _, scenario := range scenariosToBeDeleted {
-		delete := "DELETE FROM scenarioTestcase WHERE testCaseId = ? AND scenarioId = ?"
+		delete := "DELETE FROM scenarioTestcase WHERE testCaseId = ? AND scenarioId = ? AND position = ?"
 		stmt, err := db.Prepare(delete)
 		if err != nil {
 			log.Fatalln(err.Error())
 		}
-		_, err = stmt.Exec(testCase.Id, scenario.Id)
+		_, err = stmt.Exec(testCase.Id, scenario.Id, scenario.Position)
 		if err != nil {
 			log.Fatalln(err.Error())
 		}
