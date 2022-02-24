@@ -3,7 +3,7 @@ package schedule
 import (
 	"fmt"
 	"log"
-	"zarbat_mock/database"
+	"zarbat_data/database"
 )
 
 func DbGetSchedules() (schedules []Schedule) {

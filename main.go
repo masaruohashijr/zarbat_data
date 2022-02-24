@@ -2,18 +2,17 @@ package main
 
 import (
 	"net/http"
-	"zarbat_mock/database"
-	"zarbat_mock/features/context"
-	"zarbat_mock/features/environment"
-	"zarbat_mock/features/feature"
-	"zarbat_mock/features/number"
-	"zarbat_mock/features/parameter"
-	"zarbat_mock/features/run"
-	"zarbat_mock/features/scenario"
-	"zarbat_mock/features/schedule"
-	"zarbat_mock/features/step"
-	"zarbat_mock/features/testCase"
-	"zarbat_mock/features/user"
+	"zarbat_data/database"
+	"zarbat_data/features/context"
+	"zarbat_data/features/environment"
+	"zarbat_data/features/number"
+	"zarbat_data/features/parameter"
+	"zarbat_data/features/run"
+	"zarbat_data/features/scenario"
+	"zarbat_data/features/schedule"
+	"zarbat_data/features/step"
+	"zarbat_data/features/testCase"
+	"zarbat_data/features/user"
 
 	"github.com/gorilla/mux"
 )
@@ -46,12 +45,6 @@ func main() {
 	router.HandleFunc("/environment/{id}", environment.Get).Methods("GET", "OPTIONS")
 	router.HandleFunc("/environment", environment.Post).Methods("POST", "OPTIONS")
 	router.HandleFunc("/environment", environment.Put).Methods("PUT", "OPTIONS")
-	// Feature
-	router.HandleFunc("/feature", feature.GetAll).Methods("GET", "OPTIONS")
-	router.HandleFunc("/feature/{id}", feature.Delete).Methods("DELETE", "OPTIONS")
-	router.HandleFunc("/feature/{id}", feature.Get).Methods("GET", "OPTIONS")
-	router.HandleFunc("/feature", feature.Post).Methods("POST", "OPTIONS")
-	router.HandleFunc("/feature", feature.Put).Methods("PUT", "OPTIONS")
 	// Number
 	router.HandleFunc("/number", number.GetAll).Methods("GET", "OPTIONS")
 	router.HandleFunc("/number/{id}", number.Delete).Methods("DELETE", "OPTIONS")
@@ -90,7 +83,7 @@ func main() {
 	router.HandleFunc("/testCase", testCase.Put).Methods("PUT", "OPTIONS")
 	http.Handle("/", router)
 	addr := ":5002"
-	println("Zarbat Mock")
+	println("Zarbat Data")
 	//http.ListenAndServe(addr, cors.Default().Handler(router))
 	http.ListenAndServe(addr, router)
 }

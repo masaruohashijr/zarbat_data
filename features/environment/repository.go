@@ -3,7 +3,7 @@ package environment
 import (
 	"fmt"
 	"log"
-	"zarbat_mock/database"
+	"zarbat_data/database"
 )
 
 func DbGetEnvironments() (environments []Environment) {

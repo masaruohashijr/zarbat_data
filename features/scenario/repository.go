@@ -3,7 +3,7 @@ package scenario
 import (
 	"fmt"
 	"log"
-	"zarbat_mock/database"
+	"zarbat_data/database"
 )
 
 func DbGetScenarios() (scenarios []Scenario) {

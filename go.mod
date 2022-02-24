@@ -1,4 +1,4 @@
-module zarbat_mock
+module zarbat_data
 
 go 1.16
 

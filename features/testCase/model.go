@@ -1,7 +1,7 @@
 package testCase
 
 import (
-	"zarbat_mock/features/scenario"
+	"zarbat_data/features/scenario"
 )
 
 type TestCase struct {
@@ -11,15 +11,4 @@ type TestCase struct {
 	EnvironmentId string              `json:"environmentId"`
 	ContextId     string              `json:"contextId"`
 	Scenarios     []scenario.Scenario `json:"scenarios"`
-}
-
-type ScenarioTestCase struct {
-	Id          int    `json:"id"`
-	TestCaseId  int    `json:"testCaseId"`
-	ScenarioId  int    `json:"scenarioId"`
-	Position    int    `json:"position"`
-	Name        string `json:"name"`
-	Description string `json:"description"`
-	ListOfSteps string `json:"listOfSteps"`
-	FeatureId   int    `json:"featureId"`
 }

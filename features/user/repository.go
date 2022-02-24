@@ -3,7 +3,7 @@ package user
 import (
 	"fmt"
 	"log"
-	"zarbat_mock/database"
+	"zarbat_data/database"
 )
 
 func DbGetUsers() (users []User) {

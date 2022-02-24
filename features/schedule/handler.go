@@ -5,25 +5,17 @@ import (
 	"fmt"
 	"net/http"
 	"strconv"
+	"zarbat_data/helper"
 
 	"github.com/gorilla/mux"
 )
-
-func ensureCors(w http.ResponseWriter) http.ResponseWriter {
-	w.Header().Add("Content-Type", "text/html; charset=utf-8")
-	w.Header().Add("Access-Control-Allow-Methods", "DELETE, PUT, POST, GET, OPTIONS")
-	w.Header().Add("Content-Type", "application/json,text/plain")
-	w.Header().Add("Access-Control-Allow-Origin", "*")
-	w.Header().Add("Access-Control-Request-Headers", "*")
-	return w
-}
 
 func GetAll(w http.ResponseWriter, r *http.Request) {
 	fmt.Println("GET ALL")
 	schedules := GetSchedules()
 	response, _ := json.Marshal(schedules)
 	fmt.Println(string(response))
-	ensureCors(w)
+	helper.EnsureCors(w)
 	fmt.Fprintf(w, string(response))
 }
 
@@ -34,7 +26,7 @@ func Get(w http.ResponseWriter, r *http.Request) {
 	schedule := GetSchedule(id)
 	response, _ := json.Marshal(schedule)
 	fmt.Println(string(response))
-	ensureCors(w)
+	helper.EnsureCors(w)
 	fmt.Fprintf(w, string(response))
 }
 
@@ -44,7 +36,7 @@ func Delete(w http.ResponseWriter, r *http.Request) {
 	id, _ := strconv.Atoi(params["id"])
 	schedule := DeleteSchedule(id)
 	response, _ := json.Marshal(schedule)
-	ensureCors(w)
+	helper.EnsureCors(w)
 	fmt.Fprintf(w, string(response))
 }
 
@@ -54,7 +46,7 @@ func Put(w http.ResponseWriter, r *http.Request) {
 	_ = json.NewDecoder(r.Body).Decode(&schedule)
 	updatedSchedule := UpdateSchedule(schedule)
 	response, _ := json.Marshal(updatedSchedule)
-	ensureCors(w)
+	helper.EnsureCors(w)
 	fmt.Fprintf(w, string(response))
 }
 
@@ -65,7 +57,7 @@ func Post(w http.ResponseWriter, r *http.Request) {
 	newSchedule := AddSchedule(schedule)
 	response, _ := json.Marshal(newSchedule)
 	fmt.Println(string(response))
-	ensureCors(w)
+	helper.EnsureCors(w)
 	fmt.Fprintf(w, string(response))
 }
 

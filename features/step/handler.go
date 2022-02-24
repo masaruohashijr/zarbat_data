@@ -5,25 +5,17 @@ import (
 	"fmt"
 	"net/http"
 	"strconv"
+	"zarbat_data/helper"
 
 	"github.com/gorilla/mux"
 )
-
-func ensureCors(w http.ResponseWriter) http.ResponseWriter {
-	w.Header().Add("Content-Type", "text/html; charset=utf-8")
-	w.Header().Add("Access-Control-Allow-Methods", "DELETE, PUT, POST, GET, OPTIONS")
-	w.Header().Add("Content-Type", "application/json,text/plain")
-	w.Header().Add("Access-Control-Allow-Origin", "*")
-	w.Header().Add("Access-Control-Request-Headers", "*")
-	return w
-}
 
 func GetAll(w http.ResponseWriter, r *http.Request) {
 	fmt.Println("GET ALL")
 	steps := GetSteps()
 	response, _ := json.Marshal(steps)
 	fmt.Println(string(response))
-	ensureCors(w)
+	helper.EnsureCors(w)
 	fmt.Fprintf(w, string(response))
 }
 
@@ -34,7 +26,7 @@ func Get(w http.ResponseWriter, r *http.Request) {
 	step := GetStep(id)
 	response, _ := json.Marshal(step)
 	fmt.Println(string(response))
-	ensureCors(w)
+	helper.EnsureCors(w)
 	fmt.Fprintf(w, string(response))
 }
 
@@ -44,7 +36,7 @@ func Delete(w http.ResponseWriter, r *http.Request) {
 	id, _ := strconv.Atoi(params["id"])
 	step := DeleteStep(id)
 	response, _ := json.Marshal(step)
-	ensureCors(w)
+	helper.EnsureCors(w)
 	fmt.Fprintf(w, string(response))
 }
 
@@ -54,7 +46,7 @@ func Put(w http.ResponseWriter, r *http.Request) {
 	_ = json.NewDecoder(r.Body).Decode(&step)
 	updatedStep := UpdateStep(step)
 	response, _ := json.Marshal(updatedStep)
-	ensureCors(w)
+	helper.EnsureCors(w)
 	fmt.Fprintf(w, string(response))
 }
 
@@ -65,7 +57,7 @@ func Post(w http.ResponseWriter, r *http.Request) {
 	newStep := AddStep(step)
 	response, _ := json.Marshal(newStep)
 	fmt.Println(string(response))
-	ensureCors(w)
+	helper.EnsureCors(w)
 	fmt.Fprintf(w, string(response))
 }
 

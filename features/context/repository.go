@@ -3,7 +3,7 @@ package context
 import (
 	"fmt"
 	"log"
-	"zarbat_mock/database"
+	"zarbat_data/database"
 )
 
 func DbGetContexts() (contexts []Context) {
@@ -36,6 +36,9 @@ func DbGetContextsByEnv(environmentId int) (contexts []Context) {
 		rows.Scan(&context.Id, &context.Name, &context.Description, &context.EnvironmentId)
 		contexts = append(contexts, context)
 	}
+	if contexts == nil {
+		contexts = append(contexts, context)
+	}
 	return contexts
 }
 func DbGetContext(id int) (context Context) {
@@ -49,6 +52,8 @@ func DbGetContext(id int) (context Context) {
 		log.Fatal(err)
 	}
 	row.Scan(&context.Id, &context.Name, &context.Description, &context.EnvironmentId)
+	context = DbGetParametersContext(context)
+	context = DbGetPhoneNumbersContext(context)
 	return context
 }
 func DbAddContext(context Context) Context {
@@ -64,6 +69,8 @@ func DbAddContext(context Context) Context {
 		log.Fatalln(err.Error())
 	}
 	context.Id = id
+	DbAddParametersContext(context)
+	DbAddPhoneNumbersContext(context)
 	return context
 }
 func DbUpdateContext(context Context) Context {
@@ -79,10 +86,16 @@ func DbUpdateContext(context Context) Context {
 		log.Fatalln(err.Error())
 	}
 	fmt.Println(affect)
+	DbUpdateParametersContext(context)
+	DbUpdatePhoneNumbersContext(context)
 	return DbGetContext(context.Id)
 }
 func DbDeleteContext(id int) Context {
 	db := database.Db
+	var context Context
+	context.Id = id
+	context = DbGetParametersContext(context)
+	deleteParameters(context, context.Parameters)
 	delete := "DELETE FROM context WHERE id = ?"
 	stmt, err := db.Prepare(delete)
 	if err != nil {

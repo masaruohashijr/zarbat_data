@@ -3,7 +3,7 @@ package parameter
 import (
 	"fmt"
 	"log"
-	"zarbat_mock/database"
+	"zarbat_data/database"
 )
 
 func DbGetParameters() (parameters []Parameter) {

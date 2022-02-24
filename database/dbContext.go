@@ -24,10 +24,10 @@ func createTableContext(db *sql.DB) {
 
 func insertContexts() {
 	insertContext(Db, 1, "ALFA", "Context ALFA", 1)
-	insertContext(Db, 2, "BETA", "Context BETA", 1)
-	insertContext(Db, 3, "GAMA", "Context GAMA", 1)
-	insertContext(Db, 4, "DELTA", "Context DELTA", 1)
-	insertContext(Db, 5, "EPSILON", "Context EPSILON", 1)
+	insertContext(Db, 2, "BETA", "Context BETA", 2)
+	insertContext(Db, 3, "GAMA", "Context GAMA", 3)
+	insertContext(Db, 4, "DELTA", "Context DELTA", 4)
+	insertContext(Db, 5, "EPSILON", "Context EPSILON", 5)
 	insertContext(Db, 6, "ZETA", "Context ZETA", 1)
 }
 
@@ -60,4 +60,40 @@ func displayContexts(db *sql.DB) {
 		row.Scan(&id, &name, &description, &envioronmentId)
 		log.Println("Context: ", name, description, envioronmentId)
 	}
+}
+
+func createTableParameterContext(db *sql.DB) {
+	createParameterContextTableSQL := `CREATE TABLE parameterContext (
+		"id" integer NOT NULL PRIMARY KEY AUTOINCREMENT,		
+		"contextId" integer,
+		"parameterId" integer,
+		"value" TEXT,
+		"position" integer
+	  );`
+
+	log.Println("Create parameterContext table...")
+	statement, err := db.Prepare(createParameterContextTableSQL) // Prepare SQL Statement
+	if err != nil {
+		log.Fatal(err.Error())
+	}
+	statement.Exec() // Execute SQL Statements
+	log.Println("parameter context table created")
+}
+
+func createTablePhoneNumberContext(db *sql.DB) {
+	createPhoneNumberContextTableSQL := `CREATE TABLE phoneNumberContext (
+		"id" integer NOT NULL PRIMARY KEY AUTOINCREMENT,		
+		"contextId" integer,
+		"phoneNumberId" integer,
+		"alias" TEXT,
+		"position" integer
+	  );`
+
+	log.Println("Create phoneNumberContext table...")
+	statement, err := db.Prepare(createPhoneNumberContextTableSQL) // Prepare SQL Statement
+	if err != nil {
+		log.Fatal(err.Error())
+	}
+	statement.Exec() // Execute SQL Statements
+	log.Println("phoneNumber context table created")
 }

@@ -24,7 +24,11 @@ func createTableScenario(db *sql.DB) {
 }
 
 func insertScenarios() {
-	insertScenario(Db, 1, "Make Call", "", "Step 1\nStep 2\nStep 3\nStep 4\nStep 5", 0)
+	insertScenario(Db, 1, "Make Call", "", " Given my test setup runs\n"+
+		" And \"NumberB\" configured to hang up after 2 seconds\n"+
+		" When I make a call from \"NumberA\" to \"NumberB\"\n"+
+		" And After waiting for 10 seconds\n"+
+		" Then I should get to view a call from \"NumberA\" to \"NumberB\" with status \"completed\"\n", 0)
 	insertScenario(Db, 2, "View Call", "", "Step 1\nStep 2\nStep 3\nStep 4\nStep 5", 0)
 	insertScenario(Db, 3, "List Calls", "", "Step 1\nStep 2\nStep 3\nStep 4\nStep 5", 0)
 	insertScenario(Db, 4, "Interrupt Live Call", "", "Step 1\nStep 2\nStep 3\nStep 4\nStep 5", 0)

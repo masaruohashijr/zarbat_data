@@ -11,53 +11,55 @@ import (
 var Db *sql.DB
 
 func InitDatabase() {
-	//resetDB()
+
+	if true {
+		resetDB()
+		Db, _ = sql.Open("sqlite3", "./sqlite-database.db")
+		// User
+		createTableUser(Db)
+		insertUsers()
+		displayUsers(Db)
+		// Context
+		createTableContext(Db)
+		createTableParameterContext(Db)
+		createTablePhoneNumberContext(Db)
+		insertContexts()
+		displayContexts(Db)
+		// Environment
+		createTableEnvironment(Db)
+		insertEnvironments()
+		displayEnvironments(Db)
+		// Number
+		createTableNumber(Db)
+		insertNumbers()
+		displayNumbers(Db)
+		// Parameter
+		createTableParameter(Db)
+		insertParameters()
+		displayParameters(Db)
+		// Run
+		createTableRun(Db)
+		insertRuns()
+		displayRuns(Db)
+		// Scenario
+		createTableScenario(Db)
+		insertScenarios()
+		displayScenarios(Db)
+		// Schedule
+		createTableSchedule(Db)
+		insertSchedules()
+		displaySchedules(Db)
+		// Step
+		createTableStep(Db)
+		insertSteps()
+		displaySteps(Db)
+		// TestCase
+		createTableTestCase(Db)
+		createTableScenarioTestCase(Db)
+		insertTestCases()
+		displayTestCases(Db)
+	}
 	Db, _ = sql.Open("sqlite3", "./sqlite-database.db")
-	// User
-	/*createTableUser(Db)
-	insertUsers()
-	displayUsers(Db)
-	// Context
-	createTableContext(Db)
-	insertContexts()
-	displayContexts(Db)
-	// Environment
-	createTableEnvironment(Db)
-	insertEnvironments()
-	displayEnvironments(Db)
-	// Feature
-	createTableFeature(Db)
-	insertFeatures()
-	displayFeatures(Db)
-	// Number
-	createTableNumber(Db)
-	insertNumbers()
-	displayNumbers(Db)
-	// Parameter
-	createTableParameter(Db)
-	insertParameters()
-	displayParameters(Db)
-	// Run
-	createTableRun(Db)
-	insertRuns()
-	displayRuns(Db)
-	// Scenario
-	createTableScenario(Db)
-	insertScenarios()
-	displayScenarios(Db)
-	// Schedule
-	createTableSchedule(Db)
-	insertSchedules()
-	displaySchedules(Db)
-	// Step
-	createTableStep(Db)
-	insertSteps()
-	displaySteps(Db)
-	// TestCase
-	createTableTestCase(Db)
-	createTableScenarioTestCase(Db)
-	insertTestCases()
-	displayTestCases(Db)*/
 }
 
 func resetDB() {

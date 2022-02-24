@@ -1,7 +1,12 @@
 package number
 
-type Number struct {
-	Id          int    `json:"id"`
-	Name        string `json:"name"`
-	Description string `json:"description"`
+type PhoneNumber struct {
+	Id            int    `json:"id"`
+	PhoneNumber   string `json:"phoneNumber"`
+	Sid           string `json:"sid"`
+	Alias         string `json:"alias"`
+	Description   string `json:"description"`
+	EnvironmentId string `json:"environmentId"`
+	ContextId     string `json:"contextId"`
+	Position      string `json:"position"`
 }

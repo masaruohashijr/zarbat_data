@@ -3,8 +3,8 @@ package testCase
 import (
 	"fmt"
 	"log"
-	"zarbat_mock/database"
-	s "zarbat_mock/features/scenario"
+	"zarbat_data/database"
+	s "zarbat_data/features/scenario"
 )
 
 func DbGetTestCases() (testCases []TestCase) {

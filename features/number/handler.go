@@ -5,25 +5,17 @@ import (
 	"fmt"
 	"net/http"
 	"strconv"
+	"zarbat_data/helper"
 
 	"github.com/gorilla/mux"
 )
-
-func ensureCors(w http.ResponseWriter) http.ResponseWriter {
-	w.Header().Add("Content-Type", "text/html; charset=utf-8")
-	w.Header().Add("Access-Control-Allow-Methods", "DELETE, PUT, POST, GET, OPTIONS")
-	w.Header().Add("Content-Type", "application/json,text/plain")
-	w.Header().Add("Access-Control-Allow-Origin", "*")
-	w.Header().Add("Access-Control-Request-Headers", "*")
-	return w
-}
 
 func GetAll(w http.ResponseWriter, r *http.Request) {
 	fmt.Println("GET ALL")
 	numbers := GetNumbers()
 	response, _ := json.Marshal(numbers)
 	fmt.Println(string(response))
-	ensureCors(w)
+	helper.EnsureCors(w)
 	fmt.Fprintf(w, string(response))
 }
 
@@ -34,7 +26,7 @@ func Get(w http.ResponseWriter, r *http.Request) {
 	number := GetNumber(id)
 	response, _ := json.Marshal(number)
 	fmt.Println(string(response))
-	ensureCors(w)
+	helper.EnsureCors(w)
 	fmt.Fprintf(w, string(response))
 }
 
@@ -44,28 +36,28 @@ func Delete(w http.ResponseWriter, r *http.Request) {
 	id, _ := strconv.Atoi(params["id"])
 	number := DeleteNumber(id)
 	response, _ := json.Marshal(number)
-	ensureCors(w)
+	helper.EnsureCors(w)
 	fmt.Fprintf(w, string(response))
 }
 
 func Put(w http.ResponseWriter, r *http.Request) {
-	fmt.Println("PUT")
-	var number Number
+	fmt.Println("PUT NUMBER")
+	var number PhoneNumber
 	_ = json.NewDecoder(r.Body).Decode(&number)
 	updatedNumber := UpdateNumber(number)
 	response, _ := json.Marshal(updatedNumber)
-	ensureCors(w)
+	helper.EnsureCors(w)
 	fmt.Fprintf(w, string(response))
 }
 
 func Post(w http.ResponseWriter, r *http.Request) {
 	fmt.Println("POST")
-	var number Number
+	var number PhoneNumber
 	_ = json.NewDecoder(r.Body).Decode(&number)
 	newNumber := AddNumber(number)
 	response, _ := json.Marshal(newNumber)
 	fmt.Println(string(response))
-	ensureCors(w)
+	helper.EnsureCors(w)
 	fmt.Fprintf(w, string(response))
 }
 

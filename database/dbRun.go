@@ -17,6 +17,7 @@ func createTableRun(db *sql.DB) {
 		"environmentId" integer,
 		"contextId" integer,
 		"userId" integer,
+		"tags" TEXT,
 		"runAt" TEXT
 	  );`
 
@@ -31,15 +32,6 @@ func createTableRun(db *sql.DB) {
 
 func insertRuns() {
 	insertRun(Db, 1, "Run 1 Test 1", "")
-	insertRun(Db, 2, "Run 2 Test 1", "")
-	insertRun(Db, 3, "Run 3 Test 1", "")
-	insertRun(Db, 4, "Run 4 Test 1", "")
-	insertRun(Db, 5, "Run 5 Test 1", "")
-	insertRun(Db, 6, "Run 6 Test 1", "")
-	insertRun(Db, 7, "Run 1 Test 2", "")
-	insertRun(Db, 8, "Run 2 Test 2", "")
-	insertRun(Db, 9, "Run 3 Test 2", "")
-	insertRun(Db, 10, "Run 1 Test 3", "")
 }
 
 // We are passing db reference connection from main to our method with other parameters

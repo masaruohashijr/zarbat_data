@@ -5,25 +5,17 @@ import (
 	"fmt"
 	"net/http"
 	"strconv"
+	"zarbat_data/helper"
 
 	"github.com/gorilla/mux"
 )
-
-func ensureCors(w http.ResponseWriter) http.ResponseWriter {
-	w.Header().Add("Content-Type", "text/html; charset=utf-8")
-	w.Header().Add("Access-Control-Allow-Methods", "DELETE, PUT, POST, GET, OPTIONS")
-	w.Header().Add("Content-Type", "application/json,text/plain")
-	w.Header().Add("Access-Control-Allow-Origin", "*")
-	w.Header().Add("Access-Control-Request-Headers", "*")
-	return w
-}
 
 func GetAll(w http.ResponseWriter, r *http.Request) {
 	fmt.Println("GET ALL RUN")
 	runs := GetRuns()
 	response, _ := json.Marshal(runs)
 	fmt.Println(string(response))
-	ensureCors(w)
+	helper.EnsureCors(w)
 	fmt.Fprintf(w, string(response))
 }
 
@@ -32,9 +24,15 @@ func Get(w http.ResponseWriter, r *http.Request) {
 	params := mux.Vars(r)
 	id, _ := strconv.Atoi(params["id"])
 	run := GetRun(id)
+	fmt.Println("id:", run.Id)
+	fmt.Println("scenario:", run.ScenarioId)
+	fmt.Println("feature:", run.FeatureId)
+	fmt.Println("context:", run.ContextId)
+	fmt.Println("tags:", run.Tags)
+	fmt.Println("name:", run.Name)
 	response, _ := json.Marshal(run)
-	fmt.Println(string(response))
-	ensureCors(w)
+	//fmt.Println(string(response))
+	helper.EnsureCors(w)
 	fmt.Fprintf(w, string(response))
 }
 
@@ -44,7 +42,7 @@ func Delete(w http.ResponseWriter, r *http.Request) {
 	id, _ := strconv.Atoi(params["id"])
 	run := DeleteRun(id)
 	response, _ := json.Marshal(run)
-	ensureCors(w)
+	helper.EnsureCors(w)
 	fmt.Fprintf(w, string(response))
 }
 
@@ -58,10 +56,11 @@ func Put(w http.ResponseWriter, r *http.Request) {
 	fmt.Println("featureId", run.FeatureId)
 	fmt.Println("environmentId", run.EnvironmentId)
 	fmt.Println("contextId", run.ContextId)
+	fmt.Println("tags", run.Tags)
 	fmt.Println("userId", run.UserId)
 	updatedRun := UpdateRun(run)
 	response, _ := json.Marshal(updatedRun)
-	ensureCors(w)
+	helper.EnsureCors(w)
 	fmt.Fprintf(w, string(response))
 }
 
@@ -75,11 +74,12 @@ func Post(w http.ResponseWriter, r *http.Request) {
 	fmt.Println("featureId", run.FeatureId)
 	fmt.Println("environmentId", run.EnvironmentId)
 	fmt.Println("contextId", run.ContextId)
+	fmt.Println("tags", run.Tags)
 	fmt.Println("userId", run.UserId)
 	newRun := AddRun(run)
 	response, _ := json.Marshal(newRun)
-	fmt.Println(string(response))
-	ensureCors(w)
+	//fmt.Println(string(response))
+	helper.EnsureCors(w)
 	fmt.Fprintf(w, string(response))
 }
 
