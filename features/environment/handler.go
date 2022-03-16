@@ -6,6 +6,7 @@ import (
 	"net/http"
 	"strconv"
 	"zarbat_data/features/context"
+	"zarbat_data/features/number"
 	"zarbat_data/helper"
 
 	"github.com/gorilla/mux"
@@ -20,13 +21,25 @@ func GetAll(w http.ResponseWriter, r *http.Request) {
 	fmt.Fprintf(w, string(response))
 }
 
-func GetByEnv(w http.ResponseWriter, r *http.Request) {
-	fmt.Println("GET BY ENV")
+func GetContextsByEnvironmentId(w http.ResponseWriter, r *http.Request) {
+	fmt.Println("GET CONTEXTS BY ENVIRONMENT")
 	params := mux.Vars(r)
 	environmentId, _ := strconv.Atoi(params["id"])
 	fmt.Println("environmentId", environmentId)
-	contexts := context.GetContextsByEnv(environmentId)
+	contexts := context.GetContextsByEnvironmentId(environmentId)
 	response, _ := json.Marshal(contexts)
+	fmt.Println(string(response))
+	helper.EnsureCors(w)
+	fmt.Fprintf(w, string(response))
+}
+
+func GetNumbersByEnvironmentId(w http.ResponseWriter, r *http.Request) {
+	fmt.Println("GET NUMBERS BY ENVIRONMENT")
+	params := mux.Vars(r)
+	environmentId, _ := strconv.Atoi(params["id"])
+	fmt.Println("environmentId", environmentId)
+	numbers := number.GetNumbersByEnvironmentId(environmentId)
+	response, _ := json.Marshal(numbers)
 	fmt.Println(string(response))
 	helper.EnsureCors(w)
 	fmt.Fprintf(w, string(response))

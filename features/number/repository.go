@@ -20,6 +20,23 @@ func DbGetNumbers() (numbers []PhoneNumber) {
 	}
 	return numbers
 }
+func DbGetNumbersByEnv(id int) (numbers []PhoneNumber) {
+	db := database.Db
+	query := "SELECT id, phoneNumber, sid, description, environmentId FROM number " +
+		" WHERE environmentId = ? " +
+		" ORDER BY ID"
+	row, err := db.Query(query, id)
+	if err != nil {
+		log.Fatal(err)
+	}
+	defer row.Close()
+	var number PhoneNumber
+	for row.Next() { // Iterate and fetch the records from result cursor
+		row.Scan(&number.Id, &number.PhoneNumber, &number.Sid, &number.Description, &number.EnvironmentId)
+		numbers = append(numbers, number)
+	}
+	return numbers
+}
 func DbGetNumber(id int) (number PhoneNumber) {
 	db := database.Db
 	stmt, err := db.Prepare("SELECT id, phoneNumber, sid, description, environmentId FROM number WHERE id = ?")

@@ -41,7 +41,8 @@ func main() {
 	// Environment
 	router.HandleFunc("/environment", environment.GetAll).Methods("GET", "OPTIONS")
 	router.HandleFunc("/environment/{id}", environment.Delete).Methods("DELETE", "OPTIONS")
-	router.HandleFunc("/environment/{id}/context", environment.GetByEnv).Methods("GET", "OPTIONS")
+	router.HandleFunc("/environment/{id}/context", environment.GetContextsByEnvironmentId).Methods("GET", "OPTIONS")
+	router.HandleFunc("/environment/{id}/number", environment.GetNumbersByEnvironmentId).Methods("GET", "OPTIONS")
 	router.HandleFunc("/environment/{id}", environment.Get).Methods("GET", "OPTIONS")
 	router.HandleFunc("/environment", environment.Post).Methods("POST", "OPTIONS")
 	router.HandleFunc("/environment", environment.Put).Methods("PUT", "OPTIONS")

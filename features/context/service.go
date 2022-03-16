@@ -6,10 +6,9 @@ func GetContexts() []Context {
 func GetContext(id int) Context {
 	return DbGetContext(id)
 }
-func GetContextsByEnv(environmentId int) []Context {
+func GetContextsByEnvironmentId(environmentId int) []Context {
 	return DbGetContextsByEnv(environmentId)
 }
-
 func AddContext(context Context) Context {
 	return DbAddContext(context)
 }

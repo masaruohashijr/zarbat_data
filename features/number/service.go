@@ -3,6 +3,9 @@ package number
 func GetNumbers() []PhoneNumber {
 	return DbGetNumbers()
 }
+func GetNumbersByEnvironmentId(environmentId int) []PhoneNumber {
+	return DbGetNumbersByEnv(environmentId)
+}
 func GetNumber(id int) PhoneNumber {
 	return DbGetNumber(id)
 }
